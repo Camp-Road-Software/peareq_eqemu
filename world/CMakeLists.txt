@@ -32,6 +32,7 @@ SET(world_sources
     world_boot.cpp
     zonelist.cpp
     zoneserver.cpp
+    pear_interface.cpp
     )
 
 SET(world_headers
@@ -68,6 +69,7 @@ SET(world_headers
     world_event_scheduler.h
     zonelist.h
     zoneserver.h
+    pear_interface.h
     )
 
 ADD_EXECUTABLE(world ${world_sources} ${world_headers})

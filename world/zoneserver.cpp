@@ -1,4 +1,3 @@
-
 /*	EQEMu: Everquest Server Emulator
 Copyright (C) 2001-2005 EQEMu Development Team (http://eqemulator.net)
 
@@ -50,6 +49,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 #include "../common/repositories/guild_tributes_repository.h"
 #include "../common/skill_caps.h"
 #include "../common/server_reload_types.h"
+#include "pear_interface.h"
 
 extern ClientList client_list;
 extern GroupLFPList LFPGroupList;
@@ -991,8 +991,7 @@ void ZoneServer::HandleMessage(uint16 opcode, const EQ::Net::Packet &p) {
 		case ServerOP_GuildMemberRemove:
 		case ServerOP_GuildMemberAdd:
 		case ServerOP_GuildSendGuildList:
-		case ServerOP_GuildMembersList:
-		{
+		case ServerOP_GuildMembersList: {
 			guild_mgr.ProcessZonePacket(pack);
 			break;
 		}
@@ -1850,4 +1849,17 @@ void ZoneServer::IncomingClient(Client* client) {
 	strn0cpy(s->lskey, client->GetLSKey(), sizeof(s->lskey));
 	SendPacket(pack);
 	delete pack;
+}
+
+void ZoneServer::HandleZoneChange(/* params */) {
+	// ... existing zone change logic ...
+
+	// Get character info
+	std::string char_name = /* get character name */;
+	int from_zone = /* get previous zone id */;
+	int to_zone = /* get new zone id */;
+	int level = /* get character level */;
+
+	// Notify Pear API
+	PearInterface::SendZoneChange(char_name, from_zone, to_zone, level);
 }

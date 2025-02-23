@@ -89,6 +89,7 @@
 #include "../common/events/player_event_logs.h"
 #include "../common/skill_caps.h"
 #include "../common/repositories/character_parcels_repository.h"
+#include "pear_interface.h"
 
 SkillCaps           skill_caps;
 ZoneStore           zone_store;
@@ -148,6 +149,12 @@ int main(int argc, char **argv)
 	}
 
 	Config = WorldConfig::get();
+
+	// Initialize PearInterface with config values
+	PearInterface::Initialize(
+		Config->PearApiKey,  // You'll need to add this to world_config
+		Config->PearBaseUrl  // And this too
+	);
 
 	LogInfo("CURRENT_VERSION [{}]", CURRENT_VERSION);
 
